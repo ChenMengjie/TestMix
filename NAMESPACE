@@ -1,0 +1,3 @@
+importFrom(Rcpp, sourceCpp)
+useDynLib(TestMix)
+exportPattern("^[[:alpha:]]+")
