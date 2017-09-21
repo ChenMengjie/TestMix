@@ -253,7 +253,7 @@ loglikelihood_given_mixture_continuous <- function(Y, Z, idy, idz, alpha, beta, 
   return(est)
 }
 
-model_selection <- function(logY, logZ, krange = c(2, 6), iter = 50, mindis = 0.2, min.prop = 0.1){
+model_selection <- function(logY, logZ, krange = c(2, 6), iter = 100, mindis = 0.2, min.prop = 0.1){
 
   fromK <- min(krange)
   toK <- max(krange)
@@ -287,7 +287,7 @@ model_selection <- function(logY, logZ, krange = c(2, 6), iter = 50, mindis = 0.
 }
 
 
-TestMix_counts <- function(Y, Z, krange = c(2, 6), iter = 50, iter.poisson = 20, mindis = 0.2, min.prop = 0.1, psi = 10, steps = 25, gamma = 0.6, down = 0.05){
+TestMix_counts <- function(Y, Z, krange = c(2, 6), iter = 100, iter.poisson = 20, mindis = 0.2, min.prop = 0.1, psi = 10, steps = 25, gamma = 0.6, down = 0.05){
   Y <- round(Y)
   Z <- round(Z)
   logY <- log(Y+1)
@@ -325,7 +325,7 @@ joint_inference_continuous <- function(Y, Z, K, iter = 50){
 }
 
 
-TestMix_continuous <- function(Y, Z, krange = c(2, 6), iter = 50, mindis = 0.2, min.prop = 0.1){
+TestMix_continuous <- function(Y, Z, krange = c(2, 6), iter = 100, mindis = 0.2, min.prop = 0.1){
   testK <- model_selection(Y, Z, krange = krange, iter = iter, mindis = mindis, min.prop = min.prop)
   res <- joint_inference_continuous(Y, Z, testK, iter = iter)
   return(res)
