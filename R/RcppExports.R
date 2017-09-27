@@ -2,46 +2,46 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 initialization_discrete <- function(YZ, K) {
-    .Call('TestMix_initialization_discrete', PACKAGE = 'TestMix', YZ, K)
+    .Call('_TestMix_initialization_discrete', PACKAGE = 'TestMix', YZ, K)
 }
 
 log_poisson_likelihood_mix <- function(Y, psi, mu, n, log_factorial_Y) {
-    .Call('TestMix_log_poisson_likelihood_mix', PACKAGE = 'TestMix', Y, psi, mu, n, log_factorial_Y)
+    .Call('_TestMix_log_poisson_likelihood_mix', PACKAGE = 'TestMix', Y, psi, mu, n, log_factorial_Y)
 }
 
 gradient_all_mix <- function(Y, Z, psi, mu, posterior_y, posterior_z, n1, n2) {
-    .Call('TestMix_gradient_all_mix', PACKAGE = 'TestMix', Y, Z, psi, mu, posterior_y, posterior_z, n1, n2)
+    .Call('_TestMix_gradient_all_mix', PACKAGE = 'TestMix', Y, Z, psi, mu, posterior_y, posterior_z, n1, n2)
 }
 
 gradient_all_combined_mix <- function(Y, psi, mu, posterior, n) {
-    .Call('TestMix_gradient_all_combined_mix', PACKAGE = 'TestMix', Y, psi, mu, posterior, n)
+    .Call('_TestMix_gradient_all_combined_mix', PACKAGE = 'TestMix', Y, psi, mu, posterior, n)
 }
 
 test_stepsize_for_psi_mix <- function(Y, gra_psi, ll, psi, mu, posterior, n, gamma, down, log_factorial_Y) {
-    .Call('TestMix_test_stepsize_for_psi_mix', PACKAGE = 'TestMix', Y, gra_psi, ll, psi, mu, posterior, n, gamma, down, log_factorial_Y)
+    .Call('_TestMix_test_stepsize_for_psi_mix', PACKAGE = 'TestMix', Y, gra_psi, ll, psi, mu, posterior, n, gamma, down, log_factorial_Y)
 }
 
 test_stepsize_for_mu_mix <- function(Y, gra_mu, ll, psi, mu, posterior, n, gamma, down, log_factorial_Y) {
-    .Call('TestMix_test_stepsize_for_mu_mix', PACKAGE = 'TestMix', Y, gra_mu, ll, psi, mu, posterior, n, gamma, down, log_factorial_Y)
+    .Call('_TestMix_test_stepsize_for_mu_mix', PACKAGE = 'TestMix', Y, gra_mu, ll, psi, mu, posterior, n, gamma, down, log_factorial_Y)
 }
 
 gradient_descent_mix <- function(Y, posterior_mat, psi_vec, mu_vec, log_factorial_Y, n, K, steps, gamma, down) {
-    .Call('TestMix_gradient_descent_mix', PACKAGE = 'TestMix', Y, posterior_mat, psi_vec, mu_vec, log_factorial_Y, n, K, steps, gamma, down)
+    .Call('_TestMix_gradient_descent_mix', PACKAGE = 'TestMix', Y, posterior_mat, psi_vec, mu_vec, log_factorial_Y, n, K, steps, gamma, down)
 }
 
 take_exp_weight <- function(x) {
-    .Call('TestMix_take_exp_weight', PACKAGE = 'TestMix', x)
+    .Call('_TestMix_take_exp_weight', PACKAGE = 'TestMix', x)
 }
 
 log_factorial <- function(Y) {
-    .Call('TestMix_log_factorial', PACKAGE = 'TestMix', Y)
+    .Call('_TestMix_log_factorial', PACKAGE = 'TestMix', Y)
 }
 
 log_factorial_calculated <- function(N) {
-    .Call('TestMix_log_factorial_calculated', PACKAGE = 'TestMix', N)
+    .Call('_TestMix_log_factorial_calculated', PACKAGE = 'TestMix', N)
 }
 
 EM_discrete_mix <- function(YZ, psi_vec, K, n, steps, iter, gamma, down) {
-    .Call('TestMix_EM_discrete_mix', PACKAGE = 'TestMix', YZ, psi_vec, K, n, steps, iter, gamma, down)
+    .Call('_TestMix_EM_discrete_mix', PACKAGE = 'TestMix', YZ, psi_vec, K, n, steps, iter, gamma, down)
 }
 

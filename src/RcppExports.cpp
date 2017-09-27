@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // initialization_discrete
 arma::vec initialization_discrete(arma::vec YZ, int K);
-RcppExport SEXP TestMix_initialization_discrete(SEXP YZSEXP, SEXP KSEXP) {
+RcppExport SEXP _TestMix_initialization_discrete(SEXP YZSEXP, SEXP KSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -20,7 +20,7 @@ END_RCPP
 }
 // log_poisson_likelihood_mix
 arma::vec log_poisson_likelihood_mix(arma::vec Y, double psi, double mu, int n, arma::vec log_factorial_Y);
-RcppExport SEXP TestMix_log_poisson_likelihood_mix(SEXP YSEXP, SEXP psiSEXP, SEXP muSEXP, SEXP nSEXP, SEXP log_factorial_YSEXP) {
+RcppExport SEXP _TestMix_log_poisson_likelihood_mix(SEXP YSEXP, SEXP psiSEXP, SEXP muSEXP, SEXP nSEXP, SEXP log_factorial_YSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -35,7 +35,7 @@ END_RCPP
 }
 // gradient_all_mix
 arma::vec gradient_all_mix(arma::vec Y, arma::vec Z, double psi, double mu, arma::vec posterior_y, arma::vec posterior_z, int n1, int n2);
-RcppExport SEXP TestMix_gradient_all_mix(SEXP YSEXP, SEXP ZSEXP, SEXP psiSEXP, SEXP muSEXP, SEXP posterior_ySEXP, SEXP posterior_zSEXP, SEXP n1SEXP, SEXP n2SEXP) {
+RcppExport SEXP _TestMix_gradient_all_mix(SEXP YSEXP, SEXP ZSEXP, SEXP psiSEXP, SEXP muSEXP, SEXP posterior_ySEXP, SEXP posterior_zSEXP, SEXP n1SEXP, SEXP n2SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -53,7 +53,7 @@ END_RCPP
 }
 // gradient_all_combined_mix
 arma::vec gradient_all_combined_mix(arma::vec Y, double psi, double mu, arma::vec posterior, int n);
-RcppExport SEXP TestMix_gradient_all_combined_mix(SEXP YSEXP, SEXP psiSEXP, SEXP muSEXP, SEXP posteriorSEXP, SEXP nSEXP) {
+RcppExport SEXP _TestMix_gradient_all_combined_mix(SEXP YSEXP, SEXP psiSEXP, SEXP muSEXP, SEXP posteriorSEXP, SEXP nSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -68,7 +68,7 @@ END_RCPP
 }
 // test_stepsize_for_psi_mix
 double test_stepsize_for_psi_mix(arma::vec Y, double gra_psi, double ll, double psi, double mu, arma::vec posterior, int n, double gamma, double down, arma::vec log_factorial_Y);
-RcppExport SEXP TestMix_test_stepsize_for_psi_mix(SEXP YSEXP, SEXP gra_psiSEXP, SEXP llSEXP, SEXP psiSEXP, SEXP muSEXP, SEXP posteriorSEXP, SEXP nSEXP, SEXP gammaSEXP, SEXP downSEXP, SEXP log_factorial_YSEXP) {
+RcppExport SEXP _TestMix_test_stepsize_for_psi_mix(SEXP YSEXP, SEXP gra_psiSEXP, SEXP llSEXP, SEXP psiSEXP, SEXP muSEXP, SEXP posteriorSEXP, SEXP nSEXP, SEXP gammaSEXP, SEXP downSEXP, SEXP log_factorial_YSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -88,7 +88,7 @@ END_RCPP
 }
 // test_stepsize_for_mu_mix
 double test_stepsize_for_mu_mix(arma::vec Y, double gra_mu, double ll, double psi, double mu, arma::vec posterior, int n, double gamma, double down, arma::vec log_factorial_Y);
-RcppExport SEXP TestMix_test_stepsize_for_mu_mix(SEXP YSEXP, SEXP gra_muSEXP, SEXP llSEXP, SEXP psiSEXP, SEXP muSEXP, SEXP posteriorSEXP, SEXP nSEXP, SEXP gammaSEXP, SEXP downSEXP, SEXP log_factorial_YSEXP) {
+RcppExport SEXP _TestMix_test_stepsize_for_mu_mix(SEXP YSEXP, SEXP gra_muSEXP, SEXP llSEXP, SEXP psiSEXP, SEXP muSEXP, SEXP posteriorSEXP, SEXP nSEXP, SEXP gammaSEXP, SEXP downSEXP, SEXP log_factorial_YSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -108,7 +108,7 @@ END_RCPP
 }
 // gradient_descent_mix
 arma::vec gradient_descent_mix(arma::vec Y, arma::mat posterior_mat, arma::vec psi_vec, arma::vec mu_vec, arma::vec log_factorial_Y, int n, int K, int steps, double gamma, double down);
-RcppExport SEXP TestMix_gradient_descent_mix(SEXP YSEXP, SEXP posterior_matSEXP, SEXP psi_vecSEXP, SEXP mu_vecSEXP, SEXP log_factorial_YSEXP, SEXP nSEXP, SEXP KSEXP, SEXP stepsSEXP, SEXP gammaSEXP, SEXP downSEXP) {
+RcppExport SEXP _TestMix_gradient_descent_mix(SEXP YSEXP, SEXP posterior_matSEXP, SEXP psi_vecSEXP, SEXP mu_vecSEXP, SEXP log_factorial_YSEXP, SEXP nSEXP, SEXP KSEXP, SEXP stepsSEXP, SEXP gammaSEXP, SEXP downSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -128,7 +128,7 @@ END_RCPP
 }
 // take_exp_weight
 arma::rowvec take_exp_weight(arma::rowvec x);
-RcppExport SEXP TestMix_take_exp_weight(SEXP xSEXP) {
+RcppExport SEXP _TestMix_take_exp_weight(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -139,7 +139,7 @@ END_RCPP
 }
 // log_factorial
 double log_factorial(int Y);
-RcppExport SEXP TestMix_log_factorial(SEXP YSEXP) {
+RcppExport SEXP _TestMix_log_factorial(SEXP YSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -150,7 +150,7 @@ END_RCPP
 }
 // log_factorial_calculated
 arma::vec log_factorial_calculated(int N);
-RcppExport SEXP TestMix_log_factorial_calculated(SEXP NSEXP) {
+RcppExport SEXP _TestMix_log_factorial_calculated(SEXP NSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -161,7 +161,7 @@ END_RCPP
 }
 // EM_discrete_mix
 Rcpp::List EM_discrete_mix(arma::vec YZ, arma::vec psi_vec, int K, int n, int steps, int iter, double gamma, double down);
-RcppExport SEXP TestMix_EM_discrete_mix(SEXP YZSEXP, SEXP psi_vecSEXP, SEXP KSEXP, SEXP nSEXP, SEXP stepsSEXP, SEXP iterSEXP, SEXP gammaSEXP, SEXP downSEXP) {
+RcppExport SEXP _TestMix_EM_discrete_mix(SEXP YZSEXP, SEXP psi_vecSEXP, SEXP KSEXP, SEXP nSEXP, SEXP stepsSEXP, SEXP iterSEXP, SEXP gammaSEXP, SEXP downSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -179,17 +179,17 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"TestMix_initialization_discrete", (DL_FUNC) &TestMix_initialization_discrete, 2},
-    {"TestMix_log_poisson_likelihood_mix", (DL_FUNC) &TestMix_log_poisson_likelihood_mix, 5},
-    {"TestMix_gradient_all_mix", (DL_FUNC) &TestMix_gradient_all_mix, 8},
-    {"TestMix_gradient_all_combined_mix", (DL_FUNC) &TestMix_gradient_all_combined_mix, 5},
-    {"TestMix_test_stepsize_for_psi_mix", (DL_FUNC) &TestMix_test_stepsize_for_psi_mix, 10},
-    {"TestMix_test_stepsize_for_mu_mix", (DL_FUNC) &TestMix_test_stepsize_for_mu_mix, 10},
-    {"TestMix_gradient_descent_mix", (DL_FUNC) &TestMix_gradient_descent_mix, 10},
-    {"TestMix_take_exp_weight", (DL_FUNC) &TestMix_take_exp_weight, 1},
-    {"TestMix_log_factorial", (DL_FUNC) &TestMix_log_factorial, 1},
-    {"TestMix_log_factorial_calculated", (DL_FUNC) &TestMix_log_factorial_calculated, 1},
-    {"TestMix_EM_discrete_mix", (DL_FUNC) &TestMix_EM_discrete_mix, 8},
+    {"_TestMix_initialization_discrete", (DL_FUNC) &_TestMix_initialization_discrete, 2},
+    {"_TestMix_log_poisson_likelihood_mix", (DL_FUNC) &_TestMix_log_poisson_likelihood_mix, 5},
+    {"_TestMix_gradient_all_mix", (DL_FUNC) &_TestMix_gradient_all_mix, 8},
+    {"_TestMix_gradient_all_combined_mix", (DL_FUNC) &_TestMix_gradient_all_combined_mix, 5},
+    {"_TestMix_test_stepsize_for_psi_mix", (DL_FUNC) &_TestMix_test_stepsize_for_psi_mix, 10},
+    {"_TestMix_test_stepsize_for_mu_mix", (DL_FUNC) &_TestMix_test_stepsize_for_mu_mix, 10},
+    {"_TestMix_gradient_descent_mix", (DL_FUNC) &_TestMix_gradient_descent_mix, 10},
+    {"_TestMix_take_exp_weight", (DL_FUNC) &_TestMix_take_exp_weight, 1},
+    {"_TestMix_log_factorial", (DL_FUNC) &_TestMix_log_factorial, 1},
+    {"_TestMix_log_factorial_calculated", (DL_FUNC) &_TestMix_log_factorial_calculated, 1},
+    {"_TestMix_EM_discrete_mix", (DL_FUNC) &_TestMix_EM_discrete_mix, 8},
     {NULL, NULL, 0}
 };
 

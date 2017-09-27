@@ -49,7 +49,11 @@ test_one_para <- function(hypo_coding, likelihoods, ID){
 }
 
 test_at_least_one_nonzero_para <- function(hypo_coding, likelihoods){
-  null.hypo <- apply(hypo_coding[, -1], 1, function(y){all( y == 1)})
+  if(ncol(hypo_coding) > 2){
+    null.hypo <- apply(hypo_coding[, -1], 1, function(y){all( y == 1)})
+  } else {
+    null.hypo <- hypo_coding[, -1] == 1
+  }
   test_statistics <- max(likelihoods[!null.hypo]) - max(likelihoods[null.hypo])
   p_value <- 1 - pchisq(2*test_statistics, 1)
   return(p_value)
@@ -157,9 +161,10 @@ initialization <- function(Y, Z, K){
 estimate_parameters_continuous <- function(K, Y, Z, iter = 25){
 
   res <- initialization(Y, Z, K)
-  alpha <- res$alpha
+  alpha <- ifelse(res$alpha > 0.5, 0.5, res$alpha)
   mu <- res$mu
   omega <- res$omega
+  omega[omega==0] <- 0.1
   posterior_y <- res$posterior_y
   posterior_z <- res$posterior_z
   beta <- 1
@@ -172,23 +177,29 @@ estimate_parameters_continuous <- function(K, Y, Z, iter = 25){
   for(j in 1:iter){
 
     for(i in 2:K){
-      mu[i-1] <- (sum(posterior_y[i, ]*Y) + sum(posterior_z[i, ]*Z))/(sum(posterior_y[i, ]) + sum(posterior_z[i, ]))
-      omega[i-1] <- (sum(posterior_y[i, ]*(Y - mu[i-1])^2) + sum(posterior_z[i, ]*(Z - mu[i-1])^2))/(sum(posterior_y[i, ]) + sum(posterior_z[i, ]))
-    }
-
-    digmma_alpha <- (sum(posterior_y[1, ]*(logY + log(beta))) + sum(posterior_z[1, ]*(logZ + log(beta))))/(sum(posterior_y[1, ]) + sum(posterior_z[1, ]))
-
-    fr <- function(x){
-      abs(digamma(x) - digmma_alpha)
-    }
-
-    if(alpha <= 2){
-      alpha_prime <- optim(0.1, fr, method = "Brent", lower = 0, upper = 2)$par
-      beta_prime <- alpha_prime*(sum(posterior_y[1, ]) + sum(posterior_z[1, ]))/(sum(posterior_y[1, ]*Y) + sum(posterior_z[1, ]*Z))
-      if(beta_prime <= 500) {
-        beta <- beta_prime
-        alpha <- alpha_prime
+      if((sum(posterior_y[i, ]) + sum(posterior_z[i, ]))!= 0){
+        mu[i-1] <- (sum(posterior_y[i, ]*Y) + sum(posterior_z[i, ]*Z))/(sum(posterior_y[i, ]) + sum(posterior_z[i, ]))
+        omega[i-1] <- (sum(posterior_y[i, ]*(Y - mu[i-1])^2) + sum(posterior_z[i, ]*(Z - mu[i-1])^2))/(sum(posterior_y[i, ]) + sum(posterior_z[i, ]))
+        omega[omega==0] <- 0.1
       }
+    }
+
+    if((sum(posterior_y[1, ]) + sum(posterior_z[1, ])) != 0){
+      digmma_alpha <- (sum(posterior_y[1, ]*(logY + log(beta))) + sum(posterior_z[1, ]*(logZ + log(beta))))/(sum(posterior_y[1, ]) + sum(posterior_z[1, ]))
+
+      fr <- function(x){
+        abs(digamma(x) - digmma_alpha)
+      }
+
+      if(alpha <= 2){
+        alpha_prime <- optim(0.1, fr, method = "Brent", lower = 0, upper = 2)$par
+        beta_prime <- alpha_prime*(sum(posterior_y[1, ]) + sum(posterior_z[1, ]))/(sum(posterior_y[1, ]*Y) + sum(posterior_z[1, ]*Z))
+        if(beta_prime <= 500) {
+          beta <- beta_prime
+          alpha <- alpha_prime
+        }
+      }
+
     }
 
     #alpha <- optim(0.1, fr, method = "Brent", lower = 0, upper = 2)$par
@@ -281,19 +292,31 @@ model_selection <- function(logY, logZ, krange = c(2, 6), iter = 100, mindis = 0
   }
 
   flag <- which(obs.prop.list >= min.prop & obs.min.mu.list >= mindis)
-  K <- max(flag)
-
+  if(length(flag) > 0){
+    K <- c(fromK:toK)[max(flag)]
+  } else {
+    K <- 1
+  }
   return(K)
 }
 
 
-TestMix_counts <- function(Y, Z, krange = c(2, 6), iter = 100, iter.poisson = 20, mindis = 0.2, min.prop = 0.1, psi = 10, steps = 25, gamma = 0.6, down = 0.05){
+TestMix_counts <- function(Y, Z, krange = NULL, iter = 100, iter.poisson = 20, mindis = 0.2, min.prop = 0.1, psi = 10, steps = 25, gamma = 0.6, down = 0.05){
   Y <- round(Y)
   Z <- round(Z)
   logY <- log(Y+1)
   logZ <- log(Z+1)
+  n <- length(c(Y, Z))
+  k.lim <- length(unique(c(Y, Z)))
+  if(is.null(krange)){
+    krange <- c(2, min(round(log(n)), k.lim))
+  }
   testK <- model_selection(logY, logZ, krange = krange, iter = iter, mindis = mindis, min.prop = min.prop)
-  res <- joint_inference(Y, Z, testK, psi = psi, iter = iter.poisson, steps = steps, gamma = gamma, down = down)
+  if(testK > 1) {
+    res <- joint_inference(Y, Z, testK, psi = psi, iter = iter.poisson, steps = steps, gamma = gamma, down = down)
+  } else {
+    res <- NULL
+  }
   return(res)
 }
 
@@ -325,9 +348,18 @@ joint_inference_continuous <- function(Y, Z, K, iter = 50){
 }
 
 
-TestMix_continuous <- function(Y, Z, krange = c(2, 6), iter = 100, mindis = 0.2, min.prop = 0.1){
+TestMix_continuous <- function(Y, Z, krange = NULL, iter = 100, mindis = 0.2, min.prop = 0.1){
+
+  k.lim <- min(length(unique(Y)), length(unique(Z)))
+  if(is.null(krange)){
+    krange <- c(2, round(log(n)))
+  }
   testK <- model_selection(Y, Z, krange = krange, iter = iter, mindis = mindis, min.prop = min.prop)
-  res <- joint_inference_continuous(Y, Z, testK, iter = iter)
+  if(testK > 1) {
+    res <- joint_inference_continuous(Y, Z, testK, iter = iter)
+  } else {
+    res <- NULL
+  }
   return(res)
 }
 
